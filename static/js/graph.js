@@ -7,13 +7,8 @@ function makeGraphs(error, projectsJson) {
    //Clean projectsJson data
    var happystatistics = projectsJson;
 
-//          NO DATES IN FILE
-//    var dateFormat = d3.time.format("%Y-%m-%d %H:%M:%S");
-//    happystatistics.forEach(function (d) {
-//        d["date_posted"] = dateFormat.parse(d["date_posted"]);
-//        d["date_posted"].setDate(1);
-//        d["total_donations"] = +d["total_donations"];
-//    });
+
+
    happystatistics.forEach(function (d) {
        if(d['Happiness Score'] > 5)
            d["Sentiment"] = "Happy";
@@ -49,6 +44,7 @@ function makeGraphs(error, projectsJson) {
    var numProjectsByRegion = regionDim.group();
    var numProjectsByFamily = familyDim.group();
    var sentimentCount = sentimentDim.group();
+
    var totalhappinessbyregion = regionDim.group().reduceSum(function(d){
        return d["Happiness Score"]
    })
@@ -81,32 +77,126 @@ function makeGraphs(error, projectsJson) {
     } 
    )
 
-//    var numProjectsByFundingStatus = fundingStatus.group();
-//    var totalDonationsByState = stateDim.group().reduceSum(function (d) {
-//        return d["total_donations"];
-//    });
-//    var stateGroup = stateDim.group();
+
+
+
+
+   var totalfamilybyregion = regionDim.group().reduceSum(function(d){
+       return d["Family"]
+   })
+   var averagefamilybyregion = regionDim.group().reduce(
+    function (p, v){
+        p.total += v['Family'];
+        p.count +=1;
+        if (p.total == 0) {
+            p.average = 0;
+        } else {
+            p.average = p.total/p.count;
+        }
+        return p;
+    },
+
+    function(p, v){
+        p.total -= v['Family'];
+        p.count -= 1;
+        if (p.count == 0) {
+            p.total = 0;
+            p.average = 0;
+        } else {
+            p.average = p.total/p.count;
+        }
+        return p;
+    },
+
+    function() {
+        return {total:0, count:0, average:0}
+    } 
+   )
+
+
+
+   var totalhealthbyregion = regionDim.group().reduceSum(function(d){
+       return d["Health (Life Expectancy)"]
+   })
+   var totalhealthbyregion = regionDim.group().reduce(
+    function (p, v){
+        p.total += v['Health (Life Expectancy)'];
+        p.count +=1;
+        if (p.total == 0) {
+            p.average = 0;
+        } else {
+            p.average = p.total/p.count;
+        }
+        return p;
+    },
+
+    function(p, v){
+        p.total -= v['Health (Life Expectancy)'];
+        p.count -= 1;
+        if (p.count == 0) {
+            p.total = 0;
+            p.average = 0;
+        } else {
+            p.average = p.total/p.count;
+        }
+        return p;
+    },
+
+    function() {
+        return {total:0, count:0, average:0}
+    } 
+   )
+
+
+   var totaleconomybyregion = regionDim.group().reduceSum(function(d){
+       return d["Economy (GDP per Capita)"]
+   })
+   var totaleconomybyregion = regionDim.group().reduce(
+    function (p, v){
+        p.total += v['Economy (GDP per Capita)'];
+        p.count +=1;
+        if (p.total == 0) {
+            p.average = 0;
+        } else {
+            p.average = p.total/p.count;
+        }
+        return p;
+    },
+
+    function(p, v){
+        p.total -= v['Economy (GDP per Capita)'];
+        p.count -= 1;
+        if (p.count == 0) {
+            p.total = 0;
+            p.average = 0;
+        } else {
+            p.average = p.total/p.count;
+        }
+        return p;
+    },
+
+    function() {
+        return {total:0, count:0, average:0}
+    } 
+   )
+
+
+
+
  
  
    var all = ndx.groupAll();
-//    var totalDonations = ndx.groupAll().reduceSum(function (d) {
-//        return d["total_donations"];
-//    });
- 
-//    var max_state = totalDonationsByState.top(1)[0].value;
- 
-   //Define values (to be used in charts)
-//    var minDate = dateDim.bottom(1)[0]["date_posted"];
-//    var maxDate = dateDim.top(1)[0]["date_posted"];
+
  
    //Charts
-   var timeChart = dc.barChart("#time-chart");
+   var regionHappiness = dc.barChart("#time-chart");
    var resourceTypeChart = dc.rowChart("#resource-type-row-chart");
-//    var povertyLevelChart = dc.rowChart("#poverty-level-row-chart");
+   var povertyLevelChart = dc.rowChart("#poverty-level-row-chart");
     var regionHappinessChart = dc.barChart("#region-happiness-chart")
 //    var numberProjectsND = dc.numberDisplay("#number-projects-nd");
 //    var totalDonationsND = dc.numberDisplay("#total-donations-nd");
    var fundingStatusChart = dc.pieChart("#funding-chart");
+
  
  
 //    selectField = dc.selectMenu('#menu-select')
@@ -129,18 +219,22 @@ function makeGraphs(error, projectsJson) {
 //        .group(totalDonations)
 //        .formatNumber(d3.format(".3s"));
  
- timeChart
-       .width(800)
+ regionHappiness
+       .width(1250)
        .height(200)
        .margins({top: 10, right: 50, bottom: 30, left: 50})
        .dimension(regionDim)
-       .group(numProjectsByRegion)
+       .group(averagehappinessbyregion)
+       .valueAccessor(function(p){
+           return p.value.average;
+       })
        .transitionDuration(500)
        .x(d3.scale.ordinal())
        .xUnits(dc.units.ordinal)
        .elasticY(true)
-       .xAxisLabel("Year")
-       .yAxis().ticks(4);
+       .xAxisLabel("Regions")
+       .yAxis().ticks(4)
+       ;
 
  regionHappinessChart
        .width(800)
@@ -162,16 +256,16 @@ function makeGraphs(error, projectsJson) {
    resourceTypeChart
        .width(300)
        .height(250)
-       .dimension(regionDim)
-       .group(numProjectsByRegion)
+       .dimension(sentimentDim)
+       .group(sentimentCount)
        .xAxis().ticks(10);
  
-//    povertyLevelChart
-//        .width(300)
-//        .height(250)
-//        .dimension(povertyLevelDim)
-//        .group(numProjectsByPovertyLevel)
-//        .xAxis().ticks(4);
+    povertyLevelChart
+       .width(300)
+       .height(250)
+       .dimension(regionDim)
+       .group(numProjectsByRegion)
+       .xAxis().ticks(4);
  
    fundingStatusChart
        .height(220)
@@ -180,6 +274,7 @@ function makeGraphs(error, projectsJson) {
        .transitionDuration(1500)
        .dimension(regionDim)
        .group(numProjectsByRegion);
+
  
  
    dc.renderAll();
