@@ -55,3 +55,13 @@
    padding-bottom: 0px;
  
 }
+
+#regionHappiness .x.axis text {
+    text-anchor: end !important;
+    transform: rotate(-25deg);
+}
+
+
+#family-chart{
+    
+}

@@ -31,7 +31,7 @@ function makeGraphs(error, projectsJson) {
    });
 
    happystatistics.forEach(function (d) {
-       if(d['Health (Life Expectancy)'] > .8)
+       if(d['Health (Life Expectancy)'] > .75)
            d["healthlvl"] = "High Life Expectancy";
         else if(d['Health (Life Expectancy)'] > .6)
             d["healthlvl"] = "Medium Life Expectancy";
@@ -40,36 +40,36 @@ function makeGraphs(error, projectsJson) {
    });
 
    happystatistics.forEach(function (d) {
-       if(d['Economy (GDP per Capita)'] > .75)
+       if(d['Economy (GDP per Capita)'] > 1.05)
            d["economylvl"] = "High GDP";
-        else if(d['Economy (GDP per Capita)'] > .6)
+        else if(d['Economy (GDP per Capita)'] > .65)
             d["economylvl"] = "Medium GDP";
         else
            d["economylvl"] = "Low GDP";
    });
 
    happystatistics.forEach(function (d) {
-       if(d['Freedom'] > .7)
+       if(d['Freedom'] > .48)
            d["freedomlvl"] = "High Freedom";
-        else if(d['Freedom'] > .5)
+        else if(d['Freedom'] > .35)
             d["freedomlvl"] = "Medium Freedom";
         else
            d["freedomlvl"] = "Low Freedom";
    });
 
     happystatistics.forEach(function (d) {
-       if(d['Trust (Government Corruption)'] > .7)
+       if(d['Trust (Government Corruption)'] > .137)
            d["trustlvl"] = "High Trust";
-        else if(d['Trust (Government Corruption)'] > .5)
+        else if(d['Trust (Government Corruption)'] > .06)
             d["trustlvl"] = "Medium Trust";
         else
            d["trustlvl"] = "Low Trust";
    });
 
    happystatistics.forEach(function (d) {
-       if(d['Generosity'] > .7)
+       if(d['Generosity'] > .25)
            d["generositylvl"] = "High Generosity";
-        else if(d['Generosity'] > .5)
+        else if(d['Generosity'] > .15)
             d["generositylvl"] = "Medium Generosity";
         else
            d["generositylvl"] = "Low Generosity";
@@ -272,7 +272,7 @@ function makeGraphs(error, projectsJson) {
 
  
    //Charts
-   var regionHappiness = dc.barChart("#time-chart");
+   var regionHappiness = dc.barChart("#regionHappiness");
    var resourceTypeChart = dc.rowChart("#resource-type-row-chart");
    var povertyLevelChart = dc.rowChart("#poverty-level-row-chart");
     var regionHappinessChart = dc.barChart("#region-happiness-chart")
@@ -311,10 +311,20 @@ function makeGraphs(error, projectsJson) {
 //        .group(totalDonations)
 //        .formatNumber(d3.format(".3s"));
  
- regionHappiness
-       .width(1250)
+ 
+happyCounts
        .height(200)
-       .margins({top: 10, right: 50, bottom: 30, left: 50})
+       .radius(90)
+       .innerRadius(40)
+       .transitionDuration(1500)
+       .dimension(sentimentDim)
+       .group(sentimentCount);
+
+
+ regionHappiness
+       .width(1000)
+       .height(200)
+       .margins({top: 10, right: 50, bottom: 80, left: 80})
        .dimension(regionDim)
        .group(averagehappinessbyregion)
        .valueAccessor(function(p){
@@ -343,7 +353,8 @@ function makeGraphs(error, projectsJson) {
  
    resourceTypeChart
        .width(300)
-       .height(250)
+       .height(200)
+       .elasticX(true)
        .dimension(sentimentDim)
        .group(sentimentCount)
        .xAxis().ticks(10);
@@ -357,56 +368,57 @@ function makeGraphs(error, projectsJson) {
  
    familypiechart
        .height(220)
+       .width(180)
        .radius(90)
-       .innerRadius(40)
+       .innerRadius(0)
        .transitionDuration(1500)
        .dimension(familylvlDim)
-       .group(familylvlCount);
+       .group(familylvlCount)
+       ;
 
-    happyCounts
-       .height(220)
-       .radius(90)
-       .innerRadius(40)
-       .transitionDuration(1500)
-       .dimension(sentimentDim)
-       .group(sentimentCount);
+
 
     healthpiechart
        .height(220)
+       .width(180)
        .radius(90)
-       .innerRadius(40)
+       .innerRadius(0)
        .transitionDuration(1500)
        .dimension(healthlvlDim)
        .group(healthlvlCount);
 
     economypiechart
        .height(220)
+       .width(180)
        .radius(90)
-       .innerRadius(40)
+       .innerRadius(0)
        .transitionDuration(1500)
        .dimension(economylvlDim)
        .group(economylvlCount);
 
     freedompiechart
        .height(220)
+       .width(180)
        .radius(90)
-       .innerRadius(40)
+       .innerRadius(0)
        .transitionDuration(1500)
        .dimension(freedomlvlDim)
        .group(freedomlvlCount);
 
     trustpiechart
        .height(220)
+       .width(180)
        .radius(90)
-       .innerRadius(40)
+       .innerRadius(0)
        .transitionDuration(1500)
        .dimension(trustlvlDim)
        .group(trustlvlCount);
 
     generositypiechart
        .height(220)
+       .width(180)
        .radius(90)
-       .innerRadius(40)
+       .innerRadius(0)
        .transitionDuration(1500)
        .dimension(generositylvlDim)
        .group(generositylvlCount);
