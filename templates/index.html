@@ -78,7 +78,7 @@
           <div class="col-sm-2">
             <div class="chart-wrapper">
               <div class="chart-title">
-                Health
+                Life Expectancy
               </div>
               <div class="chart-stage">
                 <div id="health-chart"></div>
@@ -140,16 +140,16 @@
           <!-- funding Pie -->
 
           <!-- funding Pie -->
-          <div class="col-sm-3">
+          <!--<div class="col-sm-3">
             <div class="chart-wrapper">
               <div class="chart-title">
-                Happiness Counts
+                Happiness COunts
               </div>
               <div class="chart-stage">
                 <div id="happy-counts"></div>
               </div>
             </div>
-          </div>
+          </div>-->
           <!-- funding Pie -->
 
 
@@ -215,7 +215,7 @@
             Total Donations in USD
           </div>
           <div class="chart-stage">
-            <div id="total-donations-nd"></div>
+            <div id="menu-select"></div>
           </div>
         </div>
       </div>
@@ -232,6 +232,8 @@
   <script src="{{ url_for ('static', filename='lib/js/queue.js')}}"></script>
   <script src="{{ url_for ('static', filename='lib/js/keen.min.js')}}"></script>
   <script src="{{ url_for ('static', filename='js/graph.js')}}"></script>
+
+  <a href="javascript:dc.filterAll(); dc.renderAll();">Reset All</a>
 </body>
 </html>
 

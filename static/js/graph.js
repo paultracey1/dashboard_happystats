@@ -32,11 +32,11 @@ function makeGraphs(error, projectsJson) {
 
    happystatistics.forEach(function (d) {
        if(d['Health (Life Expectancy)'] > .75)
-           d["healthlvl"] = "High Life Expectancy";
+           d["healthlvl"] = "High";
         else if(d['Health (Life Expectancy)'] > .6)
-            d["healthlvl"] = "Medium Life Expectancy";
+            d["healthlvl"] = "Medium";
         else
-           d["healthlvl"] = "Low Life Expectancy";
+           d["healthlvl"] = "Low";
    });
 
    happystatistics.forEach(function (d) {
@@ -112,6 +112,12 @@ function makeGraphs(error, projectsJson) {
        return d["generositylvl"];
    });
 
+   var happyCountriesDim = ndx.dimension(function (d) {
+       return d["Happiness Score"];
+   });
+
+
+
 
  
  
@@ -127,6 +133,8 @@ function makeGraphs(error, projectsJson) {
    var freedomlvlCount = freedomlvlDim.group();
    var trustlvlCount = trustlvlDim.group();
    var generositylvlCount = generositylvlDim.group();
+
+   var happyCountries = happyCountriesDim.group();
 
    var totalhappinessbyregion = regionDim.group().reduceSum(function(d){
        return d["Happiness Score"]
@@ -358,7 +366,10 @@ happyCounts
        .dimension(sentimentDim)
        .group(sentimentCount)
        .xAxis().ticks(10);
- 
+
+
+
+
     povertyLevelChart
        .width(300)
        .height(250)
@@ -424,6 +435,12 @@ happyCounts
        .group(generositylvlCount);
 
 
+
+    selectField = dc.selectMenu('#menu-select')
+       .dimension(happyCountriesDim)
+       .group(happyCountries)
+
+
     //    happyCounts
     //    .height(220)
     //    .radius(90)
@@ -436,7 +453,36 @@ happyCounts
     //    })
 
 
+
+// var chartWidth = $("pieChart").width();
+// var pieRadius = 200;
+// if(chartWidth >= 480){
+//     pieRadius = 200;
+// } else {
+//     pieRadius = chartWidth * 0.3;
+// }
+
+// .width(chartWidth)
+// .radius(pieRadius)
+
+
+
+
  
  
    dc.renderAll();
+
+
+
+function AddXAxis(chartToUpdate, displayText)
+{
+    chartToUpdate.svg()
+                .append("text")
+                .attr("class", "x-axis-label")
+                .attr("text-anchor", "middle")
+                .attr("x", chartToUpdate.width()/2)
+                .attr("y", chartToUpdate.height()+.3)
+                .text(displayText);
+}
+AddXAxis(resourceTypeChart, "Number of countries");
 }
