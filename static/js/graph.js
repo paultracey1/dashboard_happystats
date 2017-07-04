@@ -389,27 +389,12 @@ happinessLevelsRowChart
 
 
 
-
-
-
-
-
- 
-
-
-
-
-
- 
-
-
-
-
     selectField = dc.selectMenu('#menu-select')
-       .dimension(happyCountriesDim)
-       .group(happyCountries)
+       .dimension(happyCountries)
+       .group(numProjectsByCountry)
 
-
+// countryDim
+// happyCountries
     
     happyCounts
        .height(200)
