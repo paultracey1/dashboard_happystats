@@ -30,7 +30,7 @@ def donor_projects():
         'Dystopia Residual': True
     }
 
-    with MongoClient(MONGODB_HOST, MONGODB_PORT) as conn:
+    with MongoClient(MONGODB_URI) as conn:
         collection = conn[DBS_NAME][COLLECTION_NAME]
         projects = collection.find(projection=FIELDS, limit=55000)
         return json.dumps(list(projects))
