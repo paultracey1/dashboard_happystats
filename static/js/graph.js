@@ -281,11 +281,8 @@ function makeGraphs(error, projectsJson) {
  
    //Charts
    var regionHappiness = dc.barChart("#regionHappiness");
-   var resourceTypeChart = dc.rowChart("#resource-type-row-chart");
-   var povertyLevelChart = dc.rowChart("#poverty-level-row-chart");
-    var regionHappinessChart = dc.barChart("#region-happiness-chart")
-//    var numberProjectsND = dc.numberDisplay("#number-projects-nd");
-//    var totalDonationsND = dc.numberDisplay("#total-donations-nd");
+   var happinessLevelsRowChart = dc.rowChart("#happiness-levels-row-chart");
+
    var familypiechart = dc.pieChart("#family-chart");
    var healthpiechart = dc.pieChart("#health-chart");
    var happyCounts = dc.pieChart("#happy-counts");
@@ -299,35 +296,14 @@ function makeGraphs(error, projectsJson) {
 
  
  
-//    selectField = dc.selectMenu('#menu-select')
-//        .dimension(stateDim)
-//        .group(stateGroup);
  
- 
-//    numberProjectsND
-//        .formatNumber(d3.format("d"))
-//        .valueAccessor(function (d) {
-//            return d;
-//        })
-//        .group(all);
- 
-//    totalDonationsND
-//        .formatNumber(d3.format("d"))
-//        .valueAccessor(function (d) {
-//            return d;
-//        })
-//        .group(totalDonations)
-//        .formatNumber(d3.format(".3s"));
- 
- 
-happyCounts
+happinessLevelsRowChart
+       .width(300)
        .height(200)
-       .radius(90)
-       .innerRadius(40)
-       .transitionDuration(1500)
+       .elasticX(true)
        .dimension(sentimentDim)
-       .group(sentimentCount);
-
+       .group(sentimentCount)
+       .xAxis().ticks(10);
 
  regionHappiness
        .width(1000)
@@ -346,40 +322,15 @@ happyCounts
        .yAxis().ticks(4)
        ;
 
- regionHappinessChart
-       .width(800)
-       .height(200)
-       .margins({top: 10, right: 50, bottom: 30, left: 50})
-       .dimension(regionDim)
-       .group(sentimentCount)
-       .transitionDuration(500)
-       .x(d3.scale.ordinal())
-       .xUnits(dc.units.ordinal)
-       .elasticY(true)
-       .xAxisLabel("Year")
-       .yAxis().ticks(4);
- 
-   resourceTypeChart
-       .width(300)
-       .height(200)
-       .elasticX(true)
-       .dimension(sentimentDim)
-       .group(sentimentCount)
-       .xAxis().ticks(10);
 
 
 
 
-    povertyLevelChart
-       .width(300)
-       .height(250)
-       .dimension(regionDim)
-       .group(numProjectsByRegion)
-       .xAxis().ticks(4);
- 
+
+
    familypiechart
        .height(220)
-       .width(180)
+       .width(document.getElementById('family-chart').clientWidth)
        .radius(90)
        .innerRadius(0)
        .transitionDuration(1500)
@@ -391,7 +342,7 @@ happyCounts
 
     healthpiechart
        .height(220)
-       .width(180)
+       .width(document.getElementById('health-chart').clientWidth)
        .radius(90)
        .innerRadius(0)
        .transitionDuration(1500)
@@ -400,7 +351,7 @@ happyCounts
 
     economypiechart
        .height(220)
-       .width(180)
+       .width(document.getElementById('economy-chart').clientWidth)
        .radius(90)
        .innerRadius(0)
        .transitionDuration(1500)
@@ -409,7 +360,7 @@ happyCounts
 
     freedompiechart
        .height(220)
-       .width(180)
+       .width(document.getElementById('freedom-chart').clientWidth)
        .radius(90)
        .innerRadius(0)
        .transitionDuration(1500)
@@ -418,7 +369,7 @@ happyCounts
 
     trustpiechart
        .height(220)
-       .width(180)
+       .width(document.getElementById('trust-chart').clientWidth)
        .radius(90)
        .innerRadius(0)
        .transitionDuration(1500)
@@ -427,7 +378,7 @@ happyCounts
 
     generositypiechart
        .height(220)
-       .width(180)
+       .width(document.getElementById('generosity-chart').clientWidth)
        .radius(90)
        .innerRadius(0)
        .transitionDuration(1500)
@@ -436,9 +387,37 @@ happyCounts
 
 
 
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
     selectField = dc.selectMenu('#menu-select')
        .dimension(happyCountriesDim)
        .group(happyCountries)
+
+
+    
+    happyCounts
+       .height(200)
+       .radius(90)
+       .innerRadius(40)
+       .transitionDuration(1500)
+       .dimension(sentimentDim)
+       .group(sentimentCount);
 
 
     //    happyCounts
