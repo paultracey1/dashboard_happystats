@@ -22,12 +22,12 @@ function makeGraphs(error, projectsJson) {
 
 
    happystatistics.forEach(function (d) {
-       if(d['Family'] > 1.1)
-           d["familylvl"] = "High Family Count";
-        else if(d['Family'] > 0.9)
-            d["familylvl"] = "Medium Family Count";
+       if(d['Family'] > 1.15)
+           d["familylvl"] = "High";
+        else if(d['Family'] > 0.93)
+            d["familylvl"] = "Medium";
         else
-           d["familylvl"] = "Low Family Count";
+           d["familylvl"] = "Low";
    });
 
    happystatistics.forEach(function (d) {
@@ -40,39 +40,39 @@ function makeGraphs(error, projectsJson) {
    });
 
    happystatistics.forEach(function (d) {
-       if(d['Economy (GDP per Capita)'] > 1.05)
-           d["economylvl"] = "High GDP";
+       if(d['Economy (GDP per Capita)'] > 1.06)
+           d["economylvl"] = "High";
         else if(d['Economy (GDP per Capita)'] > .65)
-            d["economylvl"] = "Medium GDP";
+            d["economylvl"] = "Medium";
         else
-           d["economylvl"] = "Low GDP";
+           d["economylvl"] = "Low";
    });
 
    happystatistics.forEach(function (d) {
-       if(d['Freedom'] > .48)
-           d["freedomlvl"] = "High Freedom";
-        else if(d['Freedom'] > .35)
-            d["freedomlvl"] = "Medium Freedom";
+       if(d['Freedom'] > .5)
+           d["freedomlvl"] = "High";
+        else if(d['Freedom'] > .37)
+            d["freedomlvl"] = "Medium";
         else
-           d["freedomlvl"] = "Low Freedom";
+           d["freedomlvl"] = "Low";
    });
 
     happystatistics.forEach(function (d) {
-       if(d['Trust (Government Corruption)'] > .137)
-           d["trustlvl"] = "High Trust";
-        else if(d['Trust (Government Corruption)'] > .06)
-            d["trustlvl"] = "Medium Trust";
+       if(d['Trust (Government Corruption)'] > .144)
+           d["trustlvl"] = "High";
+        else if(d['Trust (Government Corruption)'] > .075)
+            d["trustlvl"] = "Medium";
         else
-           d["trustlvl"] = "Low Trust";
+           d["trustlvl"] = "Low";
    });
 
    happystatistics.forEach(function (d) {
-       if(d['Generosity'] > .25)
-           d["generositylvl"] = "High Generosity";
-        else if(d['Generosity'] > .15)
-            d["generositylvl"] = "Medium Generosity";
+       if(d['Generosity'] > .26)
+           d["generositylvl"] = "High";
+        else if(d['Generosity'] > .17)
+            d["generositylvl"] = "Medium";
         else
-           d["generositylvl"] = "Low Generosity";
+           d["generositylvl"] = "Low";
    });
  
  
@@ -303,7 +303,9 @@ happinessLevelsRowChart
        .elasticX(true)
        .dimension(sentimentDim)
        .group(sentimentCount)
-       .xAxis().ticks(10);
+       .xAxis().ticks(10)
+       
+       ;
 
  regionHappiness
        .width(1000)
@@ -319,8 +321,10 @@ happinessLevelsRowChart
        .xUnits(dc.units.ordinal)
        .elasticY(true)
        .xAxisLabel("Regions")
+       .yAxisLabel("Happiness score")
        .yAxis().ticks(4)
        ;
+       
 
 
 
@@ -336,7 +340,8 @@ happinessLevelsRowChart
        .transitionDuration(1500)
        .dimension(familylvlDim)
        .group(familylvlCount)
-       ;
+       .colorDomain([0, 10, 100, 1000])
+       .cx(90);
 
 
 
@@ -347,7 +352,9 @@ happinessLevelsRowChart
        .innerRadius(0)
        .transitionDuration(1500)
        .dimension(healthlvlDim)
-       .group(healthlvlCount);
+       .group(healthlvlCount)
+       .colorDomain([0, 10, 100, 1000])
+       .cx(90);
 
     economypiechart
        .height(220)
@@ -356,7 +363,9 @@ happinessLevelsRowChart
        .innerRadius(0)
        .transitionDuration(1500)
        .dimension(economylvlDim)
-       .group(economylvlCount);
+       .group(economylvlCount)
+       .colorDomain([0, 10, 100, 1000])
+       .cx(90);
 
     freedompiechart
        .height(220)
@@ -365,7 +374,10 @@ happinessLevelsRowChart
        .innerRadius(0)
        .transitionDuration(1500)
        .dimension(freedomlvlDim)
-       .group(freedomlvlCount);
+       .group(freedomlvlCount)
+       .colorDomain([0, 10, 100, 1000])
+       .cx(90)
+       ;
 
     trustpiechart
        .height(220)
@@ -374,7 +386,9 @@ happinessLevelsRowChart
        .innerRadius(0)
        .transitionDuration(1500)
        .dimension(trustlvlDim)
-       .group(trustlvlCount);
+       .group(trustlvlCount)
+       .colorDomain([0, 10, 100, 1000])
+       .cx(90);
 
     generositypiechart
        .height(220)
@@ -383,7 +397,9 @@ happinessLevelsRowChart
        .innerRadius(0)
        .transitionDuration(1500)
        .dimension(generositylvlDim)
-       .group(generositylvlCount);
+       .group(generositylvlCount)
+       .colorDomain([0, 10, 100, 1000])
+       .cx(90);
 
 
 

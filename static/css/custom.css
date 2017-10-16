@@ -60,12 +60,3 @@
     text-anchor: end !important;
     transform: rotate(-25deg);
 }
-
-
-
-/*@media (max-width: 5px){
-    #regionHappiness .x.axis text {
-        text-anchor: end !important;
-        transform: rotate(-55deg);
-}
-}*/
