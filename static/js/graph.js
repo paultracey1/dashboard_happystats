@@ -407,7 +407,7 @@ happinessLevelsRowChart
 
     selectField = dc.selectMenu('#menu-select')
        .dimension(happyCountries)
-       .group(numProjectsByCountry)
+       .group(sentimentCount);
 
 // countryDim
 // happyCountries

@@ -60,3 +60,15 @@
     text-anchor: end !important;
     transform: rotate(-25deg);
 }
+
+
+
+#intro_button {
+    margin-top: 13px;
+    background-color: #FFE033;
+}
+
+
+#reset_button{
+    background-color: #FEA062;
+}
