@@ -407,10 +407,8 @@ happinessLevelsRowChart
 
     selectField = dc.selectMenu('#menu-select')
        .dimension(happyCountries)
-       .group(sentimentCount);
+       .group(numProjectsByCountry)
 
-// countryDim
-// happyCountries
     
     happyCounts
        .height(200)
@@ -420,35 +418,6 @@ happinessLevelsRowChart
        .dimension(sentimentDim)
        .group(sentimentCount);
 
-
-    //    happyCounts
-    //    .height(220)
-    //    .radius(90)
-    //    .innerRadius(40)
-    //    .transitionDuration(1500)
-    //    .dimension(regionDim)
-    //    .group(averagehappinessbyregion)
-    //    .valueAccessor(function(p){
-    //        return p.value.average;
-    //    })
-
-
-
-// var chartWidth = $("pieChart").width();
-// var pieRadius = 200;
-// if(chartWidth >= 480){
-//     pieRadius = 200;
-// } else {
-//     pieRadius = chartWidth * 0.3;
-// }
-
-// .width(chartWidth)
-// .radius(pieRadius)
-
-
-
-
- 
  
    dc.renderAll();
 
