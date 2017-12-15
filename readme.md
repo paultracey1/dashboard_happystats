@@ -3,7 +3,7 @@ For a live Demo: https://paultracey-dashboard.herokuapp.com/
 
 **Design**
 The design principle of this dashboard was driven by "Crossfilter.js"'s ability to allow the graphs to interact with one another. As such there's 3 types of graphs;
-1. One displaying the number of countries with aribitarily defined levels of happiness
+1. One displaying the number of countries with arbitrarily defined levels of happiness
 2. Another displaying the regions (encompassing countries) and their average happiness scores (which are out of ten)
 3. Thirdly there are 6 pie charts which describe the attributes of the countries selected
 
